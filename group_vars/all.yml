@@ -122,6 +122,7 @@ home_name: "dbhome_1"
 oracle_sid: "{% if db_config_type == 'SI' %}{{ db_name }}{% else %}{{ db_name }}{{ instance_num }}{% endif %}"
 asm_sid: "{% if db_config_type == 'SI' %}+ASM{% else %}+ASM{{ instance_num }}{% endif %}"
 run_initial_bu: true
+cv_assume_distid: OEL7.8
 
 # Installation options:
 create_db: true

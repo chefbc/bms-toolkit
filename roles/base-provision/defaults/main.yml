@@ -20,13 +20,42 @@ etc_hosts_ip: "{% if 'virtualbox' in ansible_virtualization_type %}{{ ansible_al
 install_os_packages: true
 
 packages:
-  - ntp
+  - ntp # - chrony
   - bind-utils
   - unzip
   - expect
   - wget
   - net-tools
+  # oralce pre-reqs
+  - bc
+  - binutils
+  - elfutils-libelf
+  - elfutils-libelf-devel
+  - fontconfig-devel
+  - glibc
+  - glibc-devel
+  - ksh
+  - libaio
+  - libaio-devel
+  - libXrender
+  - libXrender-devel
+  - libX11
+  - libXau
+  - libXi
+  - libXtst
+  - libgcc
+  - librdmacm-devel
+  - libstdc++
+  - libstdc++-devel
+  - libxcb
+  - make
+  - net-tools
+  - smartmontools
+  - sysstat
+  - unzip
+  - libnsl
+  - libnsl2
 
 swap_blk_device: ""
 ntp_preferred: ""
-ntp_options: "-g"
+ntp_options: "-g" # ""

@@ -63,24 +63,24 @@
 
 - name: Update OPTIONS in /etc/sysconfig/ntpd
   lineinfile:
-    dest: /etc/sysconfig/ntpd
+    dest: /etc/sysconfig/ntpd # /etc/sysconfig/chronyd
     regexp: '^OPTIONS='
     line: 'OPTIONS="{{ ntp_options }}"'
-  notify: restart ntpd
+  notify: restart ntpd # chronyd
 
 - name: Add ntp preferred server
   blockinfile:
-    path: /etc/ntp.conf
+    path: /etc/ntp.conf # /etc/chrony.conf
     marker: "# {mark} ANSIBLE MANAGED BLOCK"
     insertafter: '^server '
     block: "server {{ ntp_preferred }} prefer iburst"
     state: "{{ (ntp_preferred != \"\" ) | ternary('present', 'absent') }}"
-  notify: restart ntpd
+  notify: restart ntpd # chronyd
   tags: ntp
 
 - name: Make sure ntp is running
   service:
-    name: ntpd
+    name: ntpd  # chronyd
     state: started
     enabled: yes
   tags: ntp

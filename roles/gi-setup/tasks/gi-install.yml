@@ -163,6 +163,8 @@
   become: yes
   become_user: "{{ grid_user }}"
   command: "{{ installer_command }}"
+  environment: 
+    CV_ASSUME_DISTID: "{{ cv_assume_distid }}"
   register: install_grid_software
   failed_when: "('Successfully Setup Software' not in install_grid_software.stdout) or
                 (install_grid_software.rc not in [0,6,250])"
