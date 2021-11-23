@@ -1,0 +1,10 @@
+[
+    {
+        "purpose": "software",
+        "blk_device": "/dev/sdc",
+        "name": "u01",
+        "fstype": "xfs",
+        "mount_point": "/u01",
+        "mount_opts": "nofail"
+    }
+]

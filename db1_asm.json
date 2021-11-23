@@ -1,0 +1,20 @@
+[
+    {
+        "diskgroup": "DATA",
+        "disks": [
+            {
+                "blk_device": "/dev/sdb",
+                "name": "DATA1"
+            }
+        ]
+    },
+    {
+        "diskgroup": "RECO",
+        "disks": [
+            {
+                "blk_device": "/dev/sdd",
+                "name": "RECO1"
+            }
+        ]
+    }
+]

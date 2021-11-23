@@ -29,18 +29,18 @@
   shell: pidof -x /usr/bin/yum /bin/yum | xargs -t -r -n 1 kill -INT
   tags: os_packages
 
-- name: Remove chrony package
-  package:
-    name: chrony
-    state: absent
-    lock_timeout: 180
-  tags: ntp
+# - name: Remove chrony package
+#   package:
+#     name: chrony
+#     state: absent
+#     lock_timeout: 180
+#   tags: ntp
 
-- name: Remove chrony rpmsave
-  file:
-    path: /etc/chrony.conf.rpmsave
-    state: absent
-  tags: ntp
+# - name: Remove chrony rpmsave
+#   file:
+#     path: /etc/chrony.conf.rpmsave
+#     state: absent
+#   tags: ntp
 
 - name: Disable avahi daemon
   systemd:
@@ -61,26 +61,33 @@
     lock_timeout: 180
   tags: os_packages
 
-- name: Update OPTIONS in /etc/sysconfig/ntpd
-  lineinfile:
-    dest: /etc/sysconfig/ntpd # /etc/sysconfig/chronyd
-    regexp: '^OPTIONS='
-    line: 'OPTIONS="{{ ntp_options }}"'
-  notify: restart ntpd # chronyd
+# - name: Update OPTIONS in /etc/sysconfig/ntpd
+#   lineinfile:
+#     dest: /etc/sysconfig/ntpd # /etc/sysconfig/chronyd
+#     regexp: '^OPTIONS='
+#     line: 'OPTIONS="{{ ntp_options }}"'
+#   notify: restart ntpd # chronyd
 
-- name: Add ntp preferred server
-  blockinfile:
-    path: /etc/ntp.conf # /etc/chrony.conf
-    marker: "# {mark} ANSIBLE MANAGED BLOCK"
-    insertafter: '^server '
-    block: "server {{ ntp_preferred }} prefer iburst"
-    state: "{{ (ntp_preferred != \"\" ) | ternary('present', 'absent') }}"
-  notify: restart ntpd # chronyd
-  tags: ntp
+# - name: Add ntp preferred server
+#   blockinfile:
+#     path: /etc/ntp.conf # /etc/chrony.conf
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK"
+#     insertafter: '^server '
+#     block: "server {{ ntp_preferred }} prefer iburst"
+#     state: "{{ (ntp_preferred != \"\" ) | ternary('present', 'absent') }}"
+#   notify: restart ntpd # chronyd
+#   tags: ntp
+
+# - name: Make sure ntp is running
+#   service:
+#     name: ntpd  # chronyd
+#     state: started
+#     enabled: yes
+#   tags: ntp
 
 - name: Make sure ntp is running
   service:
-    name: ntpd  # chronyd
+    name: chronyd
     state: started
     enabled: yes
   tags: ntp
